@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>:: My-Task:: Signin</title>
+    <!-- project css file  -->
+    <link rel="stylesheet" href="{% static 'assets/css/my-task.style.min.css' %}">
+</head>
+
+<body>
+
+    <div id="mytask-layout" class="theme-indigo">
+        <!-- main body area -->
+        <div class="main p-2 py-3 p-xl-5 ">
+
+            <!-- Body: Body -->
+            <div class="body d-flex p-0 p-xl-5">
+                <div class="container-xxl">
+
+                    <div class="row g-0">
+
+                        <div
+                            class="d-flex justify-content-center align-items-center auth-h100">
+                            <div class="w-100 p-3 p-md-5 card border-0 bg-dark text-light" style="max-width: 32rem;">
+                                <!-- Form -->
+                                    <div class="col-12 text-center mb-4">
+                                        <h1>Sign in</h1>
+                                        <span>USE A DEMO ACCOUNT</span>
+                                        <small>( USER ROLES )</small>
+                                    </div>
+                                    <div class="col-12 text-center mb-4">
+                                        <form class="mb-3" id="devform" method="POST" action="{% url 'core:submitter_demo' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="flag" value="2" />
+                                            <button class="btn btn-lg btn-outline-secondary btn-block">
+                                                <a class="text-white" href="#" onclick="document.forms[0].submit();return false;">SUBMITTER</a>
+                                            </button>
+                                        </form>
+                                        
+                                        <form class="mb-3" id="devform" method="POST" action="{% url 'core:dev_demo' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="flag" value="2" />
+                                            <button class="btn btn-lg btn-outline-secondary btn-block">
+                                                <a class="text-white" href="#" onclick="document.forms[1].submit();return false;">DEVELOPER</a>
+                                            </button>
+                                        </form>
+                                        
+                                        <form class="mb-3" id="myform" method="POST" action="{% url 'core:admin_demo' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="flag" value="2" />
+                                            <button class="btn btn-lg btn-outline-secondary btn-block">
+                                                <a class="text-white" href="#" onclick="document.forms[2].submit();return false;">ADMINISTRATOR</a>
+                                            </button>
+                                        </form>
+                                        
+                                        
+                                        
+                                        <form class="mb-3" id="devform" method="POST" action="{% url 'core:pm_demo' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="flag" value="2" />
+                                            <button class="btn btn-lg btn-outline-secondary btn-block">
+                                                <a class="text-white" href="#" onclick="document.forms[3].submit();return false;">PROJECT MANAGER</a>
+                                            </button>
+                                        </form>
+
+
+                                        <span class="dividers text-muted mt-4">OR</span>
+                                    </div>
+                                <form class="row g-1 p-3 p-md-4" method="POST" action="">
+                                        {% csrf_token %}
+                                    
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <label class="form-label">USERNAME</label>
+                                            {{form.username}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <label class="form-label">PASSWORD</label>
+                                            {{form.password}}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center mt-4">
+                                        <input class="btn btn-lg btn-block btn-light lift text-uppercase" type='submit'
+                                            value="SIGN IN">
+                                    </div>
+                                    <div class="col-12 text-center mt-4">
+                                        <span class="text-muted">Don't have an account yet? <a href="{% url 'signup' %}"
+                                                class="text-secondary">Sign up here</a></span>
+                                    </div>
+                                </form>
+                                <!-- End Form -->
+                            </div>
+                        </div>
+                    </div> <!-- End Row -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

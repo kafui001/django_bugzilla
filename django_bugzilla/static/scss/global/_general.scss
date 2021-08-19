@@ -1,0 +1,503 @@
+body {
+    @include transition(ease .1s);
+    background-color: var(--body-color);
+    color: var(--text-color);
+    font-weight: $font-weight-normal;
+    font-family: $font-opensans;
+    font-size: 14px;
+
+    &.font-opensans{
+        font-family: $font-opensans;
+    }
+    &.font-quicksand{
+        font-family: $font-quicksand;
+        font-size: 15px;
+    }
+    &.font-nunito{
+        font-family: $font-nunito;
+        font-size: 15px;
+    }
+    &.font-raleway{
+        font-family: $font-raleway;
+    }
+}
+
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+        color: var(--secondary-color);
+    }
+}
+/***********table*********/
+.table-hover>tbody>tr:hover{
+    --bs-table-accent-bg: var(--color-300);
+}
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, 
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+    top: 50%;
+    background-color:var(--primary-color);
+    transform: translateY(-50%);
+}
+table.dataTable>tbody>tr.child ul.dtr-details{
+    display: block;
+}
+#myProjectTable_length,#myProjectTable_filter,#myProjectTable_info{
+    @media only screen and (max-width:  $break-small - 1px) {
+        display: none;
+    }
+}
+#myProjectTable_paginate{
+    ul.pagination {
+        @media only screen and (max-width:  $break-small - 1px) {
+            justify-content: start!important;
+        }
+    }
+}
+/***********endtable*********/
+.mem-list{
+    @include overflow(scroll);
+    height: 220px;
+    overflow-y: auto;
+}
+
+.todo_list{
+    li{
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+        &:last-child{
+            border-bottom: 0;
+        }
+        label{
+            position: relative;
+            &:before{
+                position: absolute;
+                content: "";
+                background-color: var(--secondary-color);
+                width: 25px;
+                height: 25px;
+                left:0px;
+                top:0px;
+                z-index: 1;
+                border-radius: .25rem;
+            }
+            input{
+                position: relative;
+                z-index: 9;
+                font-size: 16px;
+                margin: 5px;
+                &.form-check-input{
+                    background-color: rgba(var(--secondary-color),0.5);
+                    border-color: var(--secondary-color);
+                    box-shadow: none;
+                }
+            }
+            span{
+                margin-left: 10px;
+            }
+        }
+    }
+    .custom-checkbox{
+        input[type="checkbox"]{
+            &:checked + span{
+                text-decoration: line-through;
+            }
+        }
+    }
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .logo-icon{
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        min-height: 60px;
+        border-radius: 50%;
+        background-color: var(--white-color);
+        margin: inherit;
+        line-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg{
+            width: 50px;
+            path{
+                fill: var(--primary-color);
+            }
+        }
+    }
+    .logo-text{
+        font-weight: bold;
+        color: var(--white-color);
+        font-size: 18px;
+        display: inline-block;
+        padding-left: 15px;
+    }
+}
+
+.pulse {
+    .pulse-ring {
+        border-color: var(--primary-color);
+        display: block;
+        position: absolute;
+        -webkit-animation: animation-pulse 3.5s ease-out;
+        animation: animation-pulse 3.5s ease-out;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        border-style: solid;
+        top: 0;
+        left: 3px;
+        border-radius: 45px;
+        height: 45px;
+        width: 45px;
+        opacity: 0;
+        border-width: 5px;
+    }
+
+    &::after{
+        display: none;
+    }
+
+    @-webkit-keyframes animation-pulse {
+        0% {
+            -webkit-transform: scale(0.1, 0.1);
+            opacity: 0.0; 
+        }
+        60% {
+            -webkit-transform: scale(0.1, 0.1);
+            opacity: 0.0;
+        }
+        65% {
+            opacity: 1;
+        }
+        100% {
+            -webkit-transform: scale(1.2, 1.2);
+            opacity: 0.0;
+        }
+    }
+      
+    @keyframes animation-pulse {
+        0% {
+            -webkit-transform: scale(0.1, 0.1);
+            opacity: 0.0;
+        }
+        60% {
+            -webkit-transform: scale(0.1, 0.1);
+            opacity: 0.0;
+        }
+        65% {
+            opacity: 1;
+        }
+        100% {
+            -webkit-transform: scale(1.2, 1.2);
+            opacity: 0.0;
+        }
+    }
+}
+.btn-set-task{
+    @media only screen and (max-width: 554px){
+        margin-top: 10px;
+    }
+}
+.mx-size{
+    @media only screen and (min-width: 480px){
+       max-width: 320px;
+    }
+}
+.tikit-info{
+    i{
+        line-height: 0;
+    }
+    span{
+        line-height: 25px;
+    }
+}
+a{
+    color: var(--text-color);
+}
+.project-tab{
+    @media only screen and (max-width:  $break-xxsmall) {
+       flex-direction: column;
+       width: 100%;
+    }
+    .prtab-set{
+        @media only screen and (max-width:  554px) {
+            margin-left: 0px !important;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .nav-link{
+            @media only screen and (max-width:  500px) {
+                padding: .5rem 18px;
+            }
+            @media only screen and (max-width:  380px) {
+                padding: .5rem 10px;
+            }
+        }
+    }
+}
+.invoice-set{
+    &.nav-tabs{
+        .nav-link{
+            @media only screen and (max-width:  $break-xxsmall) {
+                width: 100px;
+                text-align: center;
+            }
+        }
+    } 
+}
+//date&time
+.form-control#datepicker,.form-control#timepicker,.form-control#datepicker2,.form-control#datepicker3,.form-control#timepicker2,.form-control#timepicker3{
+    -webkit-appearance: none;
+  -moz-appearance: none;
+}
+// header notifications 
+.notifications {
+    z-index: 9999 !important;
+    .pulse,
+    .pulse:focus{
+        color: var(--text-color) !important;
+    }
+    .card{
+        .card-header{
+            background-color: var(--primary-color);
+            color: $white;
+
+            .nav-tabs{
+                
+                .nav-link{
+                    color: rgba($white, .2);
+                    font-size: 1rem;
+                    border: 0;
+
+                    &.active,
+                    &:hover{
+                        color: var(--secondary-color);
+                        background-color: transparent;
+
+                        &::after{
+                            content: '';
+                            width: 7px;
+                            height: 7px;
+                            background-color: var(--secondary-color);
+                            display: block;
+                            border-radius: 50%;
+                            margin: 5px auto 0;
+                        }
+                    }
+                }
+            }
+        }
+        .list{
+            @include overflow(scroll);
+            height: 330px;
+            overflow-y: auto;
+        }
+    }
+    .dropdown-menu{
+
+        @media only screen and (max-width:  $break-small - 1px) {
+            width: 280px;
+        }
+        @media only screen and (max-width:  320px) {
+          width: 220px;
+        }
+        .w380{
+            @media only screen and (max-width:  $break-small - 1px) {
+                width: 280px;
+            }
+            @media only screen and (max-width:  320px) {
+              width: 220px;
+            }
+        }
+    }
+}
+
+// for card 
+.row-deck {
+    >.col,
+    >[class*='col-']{
+        display: flex;
+        align-items: stretch;
+        .card{
+            flex: 1 1 auto;
+        }
+    }
+}
+
+// apex chart line and text color
+.apexcharts-canvas{
+	line{
+		stroke: var(--border-color);
+	}
+	text{
+		fill: var(--color-500);
+	}
+	circle{
+		stroke: var(--border-color);
+	}
+	.apexcharts-legend-text{
+		color: var(--color-500) !important;
+	}
+}
+
+.sparkline_chart{
+    canvas{
+        width: 100% !important;
+    }
+}
+
+// Do not add in project
+:not(pre) > code[class*="language-"], pre[class*="language-"]{
+    background: var(--color-100) !important;
+}
+code[class*="language-"], pre[class*="language-"]{
+    text-shadow: none !important;
+    color: var(--color-000) !important;
+}
+
+//Side navbar
+.side-navbar{
+    li{
+        margin-bottom: 5px;
+        a{
+            color: var(--text-color);
+        }
+    }
+}
+.btn-outline-secondary.btn-block{
+    color: #fff !important;
+}
+
+//basic Comman
+.teacher-fulldeatil{
+    @media only screen and (max-width: $break-xxsmall) {
+        flex-direction: column;
+    }
+    .teacher-info{
+        &.border-start{
+            @media only screen and (max-width: $break-xxsmall) {
+                border-left: 0px !important;
+                padding-left: 0px !important;
+            }
+        }
+    }
+    .profile-av{
+        @media only screen and (max-width: $break-xxsmall) {
+            text-align: left !important;
+        }
+    }
+    .about-info{
+        @media only screen and (max-width: $break-xxsmall) {
+           justify-content: flex-start !important;
+        }
+    }
+}
+
+.navbar-toggler:focus{
+    box-shadow: none;
+}
+.set-md-img{
+    @media only screen and (max-width: $break-large - 1px) {
+       max-width: 225px;
+    }
+}
+.line-color{
+    .apexcharts-canvas {
+        line {
+            stroke: var(--card-color) !important;
+        }
+    }
+}
+.shared-table{
+    @media only screen and (max-width: $break-xxsmall) {
+        .nav-link{
+            padding: 5px 12px;
+        }
+    }
+}
+.form-control-lg {
+    @media only screen and (max-width: $break-small) {
+        min-height: calc(1.5em + 1rem + 2px) !important;
+    }
+}
+//project
+.project_name{
+    position: absolute;
+    left: 50%;
+    top: 33px;
+    transform: translateX(-50%);
+}
+.project-block{
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    color: var(--text-color);
+    font-size: 30px;
+}
+#apex-emplyoeeAnalytics{
+    .apexcharts-canvas line {
+        stroke: transparent !important;
+    }
+}
+#apex-MainCategories,#incomeanalytics{
+    .apexcharts-canvas{
+        margin: 0 auto;
+    }
+}
+@media only screen and (max-width: 554px){
+    .w-sm-100{
+        width:100%;
+    }
+}
+@media only screen and (max-width: $break-xxsmall + 40) {
+    .profile-teacher{
+        margin: 0 auto;
+        padding-right: 0px !important;
+    }
+    .teacher-card{
+        .card-body{
+            flex-direction: column;
+            .profile-av{
+                padding-right: 0px !important;
+                &.w220{
+                    width: 100%;
+                }
+                .about-info{
+                    justify-content: center !important;
+                }
+            }
+            .teacher-info{
+                padding-left: 0px !important;
+                border-color: transparent !important;
+                text-align: center;
+                .social{
+                    justify-content: center;
+                }
+                .ct-btn-set{
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: $break-xxsmall) {
+    .bunch_list{
+        flex-direction: column;
+        .task_status,.lesson_name,.assignment_name,.submit_time,.complited_time{
+            margin:3px 0px;
+        }
+    }
+}

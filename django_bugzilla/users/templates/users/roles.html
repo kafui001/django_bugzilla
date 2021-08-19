@@ -1,0 +1,140 @@
+{% extends 'core/base.html' %}
+{% load static %}
+<title>:: My-Task:: Task </title>
+{% block content %}
+<div class="main px-lg-4 px-md-4">
+
+    <!-- Body: Body -->
+    <div class="body d-flex py-lg-3 py-md-2">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="border-0 mb-4">
+                    <div
+                        class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold py-3 mb-0">Roles</h3>
+                        <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
+                            
+                            <ul class="nav nav-tabs tab-body-header rounded ms-3 prtab-set w-sm-100" role="tablist">
+                                
+                                <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#developer-role"
+                                        role="tab">Developer Role</a></li>
+                                {% if user.is_superuser %}
+                                    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#pm-role"
+                                            role="tab">Project Manager Role</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#admin-role" role="tab">Admin
+                                            Role</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Row end  -->
+
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 flex-column">
+                    <div class="tab-content mt-4">
+                        <div class="tab-pane fade show active" id="developer-role">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                <!-- DEVELOPER -->
+                                    <div>
+                                        <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title  fw-bold" id="edittickitLabel">Assign Developer Role</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="deadline-form">
+                                                        <form method="POST" action="{% url 'dev_role' %}">
+                                                            {% csrf_token %}
+                                                           
+                                                            <select name="dev" class="form-control">
+                                                                <option value='none'>Select a username</option>
+                                                                {% for dev in non_dev %}
+                                                                <option value='{{ dev.id }}'>{{ dev.username }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                           
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary">Assign role</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- pm -->
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pm-role">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                <div>
+                                    <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title  fw-bold" id="edittickitLabel">Assign Project Manager Role</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="deadline-form">
+                                                    <form method="POST" action="{% url 'pm_role' %}">
+                                                        {% csrf_token %}
+                                                        
+                                                        <select name="pm" class="form-control">
+                                                            <option value='none'>Select a username</option>
+                                                            {% for pm in non_pm %}
+                                                            <option value='{{ pm.id }}'>{{ pm.username }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Assign role</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="admin-role">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                <div>
+                                    <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title  fw-bold" id="edittickitLabel">Assign Admin Role</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="deadline-form">
+                                                    <form method="POST" action="">
+                                                        {% csrf_token %}
+                                                        
+                                                        <select name="ad" class="form-control">
+                                                            <option value='none'>Select a username</option>
+                                                            {% for ad in non_admin %}
+                                                            <option value='{{ ad.id }}'>{{ ad.username }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Assign role</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

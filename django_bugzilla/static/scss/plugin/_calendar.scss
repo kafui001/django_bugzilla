@@ -1,0 +1,34 @@
+.fc{
+    * {
+        color: var(--primary-color);
+    }
+    .fc-col-header-cell-cushion{
+        color: var(--primary-color);
+    }
+    .fc-h-event .fc-event-title{
+        color: var(--white-color);
+    }
+    .fc-h-event{
+        background-color: var(--primary-color);
+        border-color: var(--border-color);
+    }
+    .fc-daygrid-event-dot{
+        border-color: var(--secondary-color);
+    }
+    .fc-button-primary{
+        background-color: var(--secondary-color);
+        color: var(--white-color);
+        border-color: var(--secondary-color);
+        .fc-icon {
+            color: var(--white-color);
+        }
+    }
+}
+
+.fc-theme-standard{
+    .fc-scrollgrid,
+    td,
+    th{
+        border-color: var(--border-color);
+    }
+}

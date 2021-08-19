@@ -1,0 +1,318 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+   {% block content %}
+
+    <!-- main body area -->
+    <div class="main px-lg-4 px-md-4"> 
+        <!-- Body: Body -->       
+        <div class="body d-flex py-lg-3 py-md-2">
+            <div class="container-xxl">
+                <div class="row align-items-center">
+                    <div class="border-0 mb-4">
+                        <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                            <h3 class="fw-bold mb-0">Tickets</h3>
+                            <div class="col-auto d-flex w-sm-100">
+                                <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#tickadd"><i class="icofont-plus-circle me-2 fs-6"></i>Create Ticket</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Row end  -->
+            
+                <div class="row clearfix g-3">
+                    <div class="col-sm-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                
+                                <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Ticket Id</th>
+                                            <th>Subject</th>
+                                            <th>Assigned</th> 
+                                            <th>Created Date</th> 
+                                            <th>Status</th> 
+                                            {% if user.is_project_manager or user.is_superuser %}
+                                                <th>Actions</th> 
+                                            {% endif %}
+                                        </tr>
+                                    </thead>
+                                    {% for item in tickets %}
+                                    <tbody>
+                                        <tr><a href="{% url 'ticket:ticket_detail' item.pk %}">
+                                            <td>
+                                                <a href="{% url 'ticket:ticket_detail' item.pk %}" class="fw-bold text-secondary">
+                                                    #tc-{{item.ticket_id}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'ticket:ticket_detail' item.pk %}">
+                                                    {{item.title}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'ticket:ticket_detail' item.pk %}">
+                                                    <span class="fw-bold ms-1">{{item.creator}}</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'ticket:ticket_detail' item.pk %}">
+                                                    {{item.date_created}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'ticket:ticket_detail' item.pk %}">
+                                                    {{item.status}}
+                                                </a>
+                                            </td>
+                                            {% if user.is_project_manager or user.is_superuser %}
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <button type="button" class="btn btn-outline-secondary" ><a href="{% url 'ticket:ticket_edit' item.pk %}"><i class="icofont-edit text-success"></i></a></button>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><a href="{% url 'ticket:ticket_delete' item.pk %}"><i class="icofont-ui-delete text-danger"></i></a></button>
+                                                    </div>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    </tbody>
+                                    {% endfor%}                                    
+                                </table>
+                                <div class="row mt-4">
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="myProjectTable_paginate">
+                                            {% if is_paginated %}
+                                                <ul class="pagination">
+                                                    {% if page_obj.has_previous %}
+                                                        <li class="paginate_button page-item previous" id="myProjectTable_previous">
+                                                            <a href="?page={{page_obj.previous_page_number}}" aria-controls="myProjectTable" data-dt-idx="0" tabindex="0" class="page-link">prev</a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="paginate_button page-item previous disabled" id="myProjectTable_previous">
+                                                            <a href="#" aria-controls="myProjectTable" data-dt-idx="0" tabindex="0"
+                                                                class="page-link">prev</a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% for i in paginator.page_range %}
+                                                        {% if page_obj.number == i %}
+                                                            <li class="paginate_button page-item active">
+                                                                <a href="#" aria-controls="myProjectTable" data-dt-idx="1" tabindex="0" class="page-link">{{ i }}</a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li class="paginate_button page-item">
+                                                                <a href="?page={{ i }}" aria-controls="myProjectTable" data-dt-idx="1" tabindex="0" class="page-link">{{ i }}</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    {% if page_obj.has_next %}
+                                                        <li class="paginate_button page-item next" id="myProjectTable_next">
+                                                            <a href="?page={{page_obj.next_page_number}}" aria-controls="myProjectTable" data-dt-idx="2" tabindex="0" class="page-link">next</a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="paginate_button page-item next disabled" id="myProjectTable_next">
+                                                            <a href="#" aria-controls="myProjectTable" data-dt-idx="2" tabindex="0" class="page-link">next</a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--row -->
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div><!-- Row End -->
+            </div>
+        </div>
+        <!-- Modal Members-->
+       <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title  fw-bold" id="addUserLabel">Employee Invitation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="inviteby_email">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email address" id="exampleInputEmail1"
+                            aria-describedby="exampleInputEmail1">
+                        <button class="btn btn-dark" type="button" id="button-addon2">Sent</button>
+                    </div>
+                </div>
+                <div class="members_list">
+                    <h6 class="fw-bold ">Employee </h6>
+                    <ul class="list-unstyled list-group list-group-custom list-group-flush mb-0">
+                        <li class="list-group-item py-3 text-center text-md-start">
+                            <div class="d-flex align-items-center flex-column flex-sm-column flex-md-row">
+                                <div class="no-thumbnail mb-2 mb-md-0">
+                                    <img class="avatar lg rounded-circle" src="assets/images/xs/avatar2.jpg" alt="">
+                                </div>
+                                <div class="flex-fill ms-3 text-truncate">
+                                    <h6 class="mb-0  fw-bold">Rachel Carr(you)</h6>
+                                    <span class="text-muted">rachel.carr@gmail.com</span>
+                                </div>
+                                <div class="members-action">
+                                    <span class="members-role ">Admin</span>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn bg-transparent dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="icofont-ui-settings  fs-6"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#"><i
+                                                        class="icofont-ui-password fs-6 me-2"></i>ResetPassword</a></li>
+                                            <li><a class="dropdown-item" href="#"><i
+                                                        class="icofont-chart-line fs-6 me-2"></i>ActivityReport</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3 text-center text-md-start">
+                            <div class="d-flex align-items-center flex-column flex-sm-column flex-md-row">
+                                <div class="no-thumbnail mb-2 mb-md-0">
+                                    <img class="avatar lg rounded-circle" src="assets/images/xs/avatar3.jpg" alt="">
+                                </div>
+                                <div class="flex-fill ms-3 text-truncate">
+                                    <h6 class="mb-0  fw-bold">Lucas Baker<a href="#" class="link-secondary ms-2">(Resend
+                                            invitation)</a></h6>
+                                    <span class="text-muted">lucas.baker@gmail.com</span>
+                                </div>
+                                <div class="members-action">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn bg-transparent dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Members
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="icofont-check-circled"></i>
+
+                                                    <span>All operations permission</span>
+                                                </a>
+
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fs-6 p-2 me-1"></i>
+                                                    <span>Only Invite & manage team</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn bg-transparent dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="icofont-ui-settings  fs-6"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#"><i
+                                                        class="icofont-delete-alt fs-6 me-2"></i>Delete Member</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3 text-center text-md-start">
+                            <div class="d-flex align-items-center flex-column flex-sm-column flex-md-row">
+                                <div class="no-thumbnail mb-2 mb-md-0">
+                                    <img class="avatar lg rounded-circle" src="assets/images/xs/avatar8.jpg" alt="">
+                                </div>
+                                <div class="flex-fill ms-3 text-truncate">
+                                    <h6 class="mb-0  fw-bold">Una Coleman</h6>
+                                    <span class="text-muted">una.coleman@gmail.com</span>
+                                </div>
+                                <div class="members-action">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn bg-transparent dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Members
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="icofont-check-circled"></i>
+
+                                                    <span>All operations permission</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fs-6 p-2 me-1"></i>
+                                                    <span>Only Invite & manage team</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn bg-transparent dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="icofont-ui-settings  fs-6"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#"><i
+                                                            class="icofont-ui-password fs-6 me-2"></i>ResetPassword</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"><i
+                                                            class="icofont-chart-line fs-6 me-2"></i>ActivityReport</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"><i
+                                                            class="icofont-delete-alt fs-6 me-2"></i>Suspend member</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"><i
+                                                            class="icofont-not-allowed fs-6 me-2"></i>Delete Member</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+       </div>
+
+        <!-- Add Ticket-->
+        <div class="modal fade" id="tickadd" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="leaveaddLabel">Create a Ticket</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="deadline-form">
+                            <form method="POST" enctype="multipart/form-data" action="{% url 'ticket:ticket_form' %}">
+                                {% csrf_token %}
+                                    {{ form.as_p }}
+
+                                    <div class="form-group mt-3">
+                                        <label>add an image ( optional )</label>
+                                        <div class="mt-2">
+                                            <input name="image" type="file" class="form-control-file">
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-primary" value='Create'>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>  
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,33 @@
+// Bootstrap v5.0.0-beta3
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
+// Global
+@import "../scss/global/fonts"; 
+@import "../scss/global/themes";
+@import "../scss/global/variables";
+@import "../scss/global/mixins";
+@import "../scss/global/general";
+@import "../scss/global/rtl-mode";
+
+
+// Custom Bootstrap Components
+@import "../scss/bootstrap/custom";
+
+// Generic
+@import "../scss/generic/helpers";
+@import "../scss/generic/animate";
+
+// Skeleton
+@import "../scss/skeleton/mytask-layout";
+
+// Plugin scss
+@import "../scss/plugin/calendar";
+@import "../scss/plugin/chat";
+@import "../scss/plugin/timeline";
+@import "../scss/plugin/taskbord";
+
+
+// Application widgets
+@import "../scss/widgets/card";
+

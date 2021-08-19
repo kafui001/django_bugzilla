@@ -1,0 +1,118 @@
+<div class="card border-0 w380">
+    <div class="card-header border-0 p-3">
+        <h5 class="mb-0 font-weight-light d-flex justify-content-between">
+            <span>Notifications</span>
+            <span class="badge text-white">{{ notifications.count }}</span>
+        </h5>
+    </div>
+    <div class="tab-content card-body">
+        <div class="tab-pane fade show active">
+            <ul class="list-unstyled list mb-0">
+                {% for notification in notifications %}
+                    {% if notification.notification_type == 1 %}
+                        <li class="py-2 mb-1 border-bottom">
+                                <div class="flex-fill ms-2">
+                                    <div><small class="mr-5">{{ notification.from_user }}</small> || <small>{{ notification.date_created }}</small></div>
+                                                            
+                                    <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="flag" value="2" />
+                                        <a href="#" onclick="document.forms[0].submit();return false;"><span class="font-weight-bold">{{ notification.from_user }} -- submitted a new ticket</span></a>
+                                    </form>
+
+                                </div>
+                        </li>
+                    {% elif notification.notification_type == 4 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created }}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span class="font-weight-bold">{{ notification.from_user }} -- assigned to you a Developer role</span></a>
+                            </form>
+                    
+                        </div>
+                    </li>
+                    {% elif notification.notification_type == 5 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created }}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span class="font-weight-bold">{{ notification.from_user }} -- assigned to you a Project Manager role</span></a>
+                            </form>
+                    
+                        </div>
+                    </li>
+                    {% elif notification.notification_type == 6 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created }}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span class="font-weight-bold">{{ notification.from_user }} -- assigned to you an Administrator role</span></a>
+                            </form>
+                    
+                        </div>
+                    </li>
+                    {% elif notification.notification_type == 7 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created}}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span
+                                        class="font-weight-bold">{{notification.from_user }} -- has assigned a ticket to you</span></a>
+                            </form>
+                    
+                        </div>
+                    </li>
+                    {% elif notification.notification_type == 8 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created }}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span
+                                        class="font-weight-bold">{{notification.from_user }} -- has assigned you to a new task</span></a>
+                            </form>
+                        </div>
+                    </li>
+                    {% elif notification.notification_type == 9 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created}}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span
+                                        class="font-weight-bold">{{notification.from_user }} -- has assigned you to a project management role for a project</span></a>
+                            </form>
+                    
+                        </div>
+                        
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+            </ul>
+        </div>
+    </div>
+</div>

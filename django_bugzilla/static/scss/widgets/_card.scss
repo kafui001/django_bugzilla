@@ -1,0 +1,14 @@
+// card 
+.card{
+    border-color: var(--border-color);
+    background-color: var(--card-color);
+    &.card-callout{
+        border-left-width: .4rem;
+        border-left-color: var(--primary-color);
+    }
+    .card-header{
+        background-color: transparent;
+        border-bottom: none;
+    }
+}
+

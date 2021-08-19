@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+<title>:: My-Task:: Task </title>
+{% block content %}
+<div class="main px-lg-4 px-md-4">
+
+    <!-- Body: Body -->
+    <div class="body d-flex py-lg-3 py-md-2">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="border-0 mb-4">
+                    <div
+                        class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold py-3 mb-0">Hi, {{request.user}} !!</h3>
+                        <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
+                            <button type="button" class="btn btn-dark btn-set-task w-sm-100 text-white"><a
+                                    href="{% url 'core:task_detail' task.pk %}" class="text-white">Task Details</a></button>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Row end  -->
+
+            <div class="row align-items-center">
+                    <div>
+                        <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title  fw-bold" id="edittackitLabel">Assigned Task</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="deadline-form">
+                                        <p>Task with a title "<strong>{{task.title}}</strong>"  has  been  assigned  you  to work on</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+                
+        </div>
+    </div>
+
+    <!-- Modal Members-->
+</div>
+
+{% endblock content %}

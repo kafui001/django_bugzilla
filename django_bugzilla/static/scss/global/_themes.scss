@@ -1,0 +1,84 @@
+:root {
+	--dark-color: 		#323A45;
+
+	--color-fff:		#FFFFFF;
+	--color-100:		#F0F0F0;
+	--color-200:		#EEEEEE;
+	--color-300:		#E0E0E0;
+	--color-400:		#BDBDBD;
+	--color-500:		#555555;
+	--color-600:		#757575;
+	--color-700:		#616161;
+	--color-800:		#424242;
+	--color-900:		#212121;
+	--color-000:		#000000;
+
+	--border-color:		#f0f0f0;
+	--card-color: 		#ffffff;
+	--body-color: 		#f9fbfd;
+	--white-color: 		#ffffff;
+	--sidebar-color:	#fcfcfc;
+    --text-color:       #212529;
+
+	--hc-font-color:	#555555;
+	--hc-bg-color:		#f0f0f0;
+
+}
+
+[data-theme="dark"] {
+	--dark-color: 		#323A45;
+
+	--color-fff:		#000000;
+	--color-100:		#212121;
+	--color-200:		#262727;
+	--color-300:		#616161;
+	--color-400:		#757575;
+	--color-500:		#8f8f8f;
+	--color-600:		#BDBDBD;
+	--color-700:		#E0E0E0;
+	--color-800:		#EEEEEE;
+	--color-900:		#F0F0F0;
+	--color-000:		#FFFFFF;
+
+	--border-color:		#353535;
+	--card-color: 		#262727;
+	--body-color: 		#1e1f20;
+	--white-color: 		#ffffff;
+	--sidebar-color:	#fcfcfc;
+    --text-color:       #8f8f8f;
+
+	--hc-font-color:	#555555;
+	--hc-bg-color:		#f0f0f0;
+
+    [class="theme-indigo"] {
+        --secondary-color: 	#F19828;
+        --body-color: 		#1e1f20;
+        --border-color:     #252525;
+        --card-color:       #111111;
+        --primary-gradient: linear-gradient(45deg, #f5558d, #FF1843);
+    }
+}
+
+[class="theme-indigo"] {
+	--primary-color: 	#484c7f;
+	--secondary-color: 	#F19828;
+
+    --chart-color1: 	#484c7f;
+    --chart-color2: 	#F19828;
+    --chart-color3: 	#f5558d;
+    --chart-color4: 	#a7daff;
+    --chart-color5: 	#9cbf3b;
+    --chart-color6: 	#a0c1b8;
+    --chart-color7: 	#64868e;
+
+
+	--primary-gradient: linear-gradient(45deg, #f5558d, #FF1843);
+}
+
+
+.secondary-color{
+    color: var(--secondary-color);
+}
+.secondary-color-fill{
+    fill: var(--secondary-color);
+}

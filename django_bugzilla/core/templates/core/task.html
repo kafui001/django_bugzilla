@@ -1,0 +1,292 @@
+{% extends 'core/base.html' %}
+{% load static %}
+    <title>:: Django Bugzilla -- Task </title>
+{% block content %}
+<div class="main px-lg-4 px-md-4">
+
+    <!-- Body: Body -->
+    <div class="body d-flex py-lg-3 py-md-2">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="border-0 mb-4">
+                    <div
+                        class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold py-3 mb-0">Tasks</h3>
+                        <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
+                            {% if user.is_superuser or user.is_project_manager %}
+                                    <button type="button" class="btn btn-dark w-sm-100" data-bs-toggle="modal"
+                                        data-bs-target="#createproject"><i class="icofont-plus-circle me-2 fs-6"></i>Create Task</button>
+                            {% endif %}
+                            <ul class="nav nav-tabs tab-body-header rounded ms-3 prtab-set w-sm-100" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#All-list"
+                                        role="tab">All</a></li>
+                                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#unassigned-list"
+                                        role="tab">Unassigned</a></li>        
+                                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#inprogress-list"
+                                        role="tab">In Progress</a></li>
+                                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#needsreview-list"
+                                        role="tab">Needs Review</a></li>
+                                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#Completed-list"
+                                        role="tab">Completed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Row end  -->
+
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 flex-column">
+                    <div class="tab-content mt-4">
+                        <div class="tab-pane fade show active" id="All-list">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                {% for task in tasks %}
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                        <div class="card">
+                                            
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center justify-content-between mt-5">
+                                                    <div class="lesson_name">
+                                                        <span class="small text-muted project_name fw-bold">{{task.project.title}}</span>
+                                                        <h6 class="mb-0 fw-bold  fs-6  mb-2">{{task.title}}</h6>
+                                                    </div>
+                                                    {% if user.is_superuser or user.is_project_manager %}
+                                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                            <button type="button" class="btn btn-outline-secondary">
+                                                                <a href="{% url 'core:task_edit' task.pk %}"><i class="icofont-edit text-success"></i></a>
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-secondary">
+                                                                <a href="{% url 'core:task_delete' task.pk %}"><i class="icofont-ui-delete text-danger"></i></a>
+                                                            </button>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="dividers-block"></div>
+                                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                                    <h4 class="fw-bold mb-0"><a href="{% url 'core:task_detail' task.id %}">Details</a></h4>
+                                                    <span class="small light-danger-bg  p-1 rounded">{{task.date_created}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="unassigned-list">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                {% for task in unassigned %}
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="card">
+                                
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-between mt-5">
+                                                <div class="lesson_name">
+                                                    <span class="small text-muted project_name fw-bold">{{task.project.title}}</span>
+                                                    <h6 class="mb-0 fw-bold  fs-6  mb-2">{{task.title}}</h6>
+                                                </div>
+                                                {% if user.is_superuser or user.is_project_manager %}
+                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_edit' task.pk %}"><i class="icofont-edit text-success"></i></a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_delete' task.pk %}"><i class="icofont-ui-delete text-danger"></i></a>
+                                                    </button>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="dividers-block"></div>
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <h4 class="fw-bold mb-0"><a href="{% url 'core:task_detail' task.id %}">Details</a></h4>
+                                                <span class="small light-danger-bg  p-1 rounded">{{task.date_created}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="inprogress-list">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                {% for task in in_progress %}
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="card">
+                                
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-between mt-5">
+                                                <div class="lesson_name">
+                                                    <span class="small text-muted project_name fw-bold">{{task.project.title}}</span>
+                                                    <h6 class="mb-0 fw-bold  fs-6  mb-2">{{task.title}}</h6>
+                                                </div>
+                                                {% if user.is_superuser or user.is_project_manager %}
+                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_edit' task.pk %}"><i class="icofont-edit text-success"></i></a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_delete' task.pk %}"><i class="icofont-ui-delete text-danger"></i></a>
+                                                    </button>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="dividers-block"></div>
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <h4 class="fw-bold mb-0"><a href="{% url 'core:task_detail' task.id %}">Details</a></h4>
+                                                <span class="small light-danger-bg  p-1 rounded">{{task.date_created}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="needsreview-list">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                {% for task in needs_review %}
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="card">
+                                
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-between mt-5">
+                                                <div class="lesson_name">
+                                                    <span class="small text-muted project_name fw-bold">{{task.project.title}}</span>
+                                                    <h6 class="mb-0 fw-bold  fs-6  mb-2">{{task.title}}</h6>
+                                                </div>
+                                                {% if user.is_superuser or user.is_project_manager %}
+                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_edit' task.pk %}"><i class="icofont-edit text-success"></i></a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_delete' task.pk %}"><i class="icofont-ui-delete text-danger"></i></a>
+                                                    </button>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="dividers-block"></div>
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <h4 class="fw-bold mb-0"><a href="{% url 'core:task_detail' task.id %}">Details</a></h4>
+                                                <span class="small light-danger-bg  p-1 rounded">{{task.date_created}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="Completed-list">
+                            <div class="row g-3 gy-5 py-3 row-deck">
+                                {% for task in completed %}
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="card">
+                                
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-between mt-5">
+                                                <div class="lesson_name">
+                                                    <span class="small text-muted project_name fw-bold">{{task.project.title}}</span>
+                                                    <h6 class="mb-0 fw-bold  fs-6  mb-2">{{task.title}}</h6>
+                                                </div>
+                                                {% if user.is_superuser or user.is_project_manager %}
+                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_edit' task.pk %}"><i class="icofont-edit text-success"></i></a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary">
+                                                        <a href="{% url 'core:task_delete' task.pk %}"><i class="icofont-ui-delete text-danger"></i></a>
+                                                    </button>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="dividers-block"></div>
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <h4 class="fw-bold mb-0"><a href="{% url 'core:task_detail' task.id %}">Details</a></h4>
+                                                <span class="small light-danger-bg  p-1 rounded">{{task.date_created}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Members-->
+            <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title  fw-bold" id="addUserLabel">Employee Invitation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="inviteby_email">
+                                <div class="input-group mb-3">
+                                    <input type="email" class="form-control" placeholder="Email address" id="exampleInputEmail1"
+                                        aria-describedby="exampleInputEmail1">
+                                    <button class="btn btn-dark" type="button" id="button-addon2">Sent</button>
+                                </div>
+                            </div>
+                            <div class="members_list">
+                                <h6 class="fw-bold "> </h6>
+                                <ul class="list-unstyled list-group list-group-custom list-group-flush mb-0">
+                                    <li class="list-group-item py-3 text-center text-md-start">
+                                        <div class="d-flex align-items-center flex-column flex-sm-column flex-md-row">
+                                            <div class="no-thumbnail mb-2 mb-md-0">
+            
+                                            </div>
+                                            <div class="flex-fill ms-3 text-truncate">
+                                            </div>
+                                            <div class="members-action">
+                                                <span class="members-role ">Admin</span>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn bg-transparent dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="icofont-ui-settings  fs-6"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="#"><i
+                                                                    class="icofont-ui-password fs-6 me-2"></i>ResetPassword</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i
+                                                                    class="icofont-chart-line fs-6 me-2"></i>ActivityReport</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+            
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Create task-->
+    <div class="modal fade" id="createproject" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Create Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action=''>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            
+                            {{ form.as_p }}
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value='Create'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

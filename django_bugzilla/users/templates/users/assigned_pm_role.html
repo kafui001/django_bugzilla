@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+{% load static %}
+<title>:: My-Task:: Task </title>
+{% block content %}
+<div class="main px-lg-4 px-md-4">
+
+    <!-- Body: Body -->
+    <div class="body d-flex py-lg-3 py-md-2">
+        <div class="container-xxl">
+            <div class="row align-items-center">
+                <div class="border-0 mb-4">
+                    <div
+                        class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold py-3 mb-0">Hi, {{request.user}} !!</h3>
+                        
+                    </div>
+                </div>
+            </div> <!-- Row end  -->
+
+            <div class="row align-items-center">
+                <div>
+                    <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title  fw-bold" id="edittickitLabel">New Assigned Role</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="deadline-form">
+                                    <p>You have now been assigned the role of a <strong>Project Manager</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

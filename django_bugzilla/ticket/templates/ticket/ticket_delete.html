@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main px-lg-4 px-md-4">
+    <div>
+        <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title  fw-bold" id="edittickitLabel">Delete Ticket no. <span class="text-danger">#tc-{{ ticket.ticket_id}}</span></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="deadline-form">
+                        <form method="POST" action="">
+                            <div class='justify-content-center flex-column d-flex'>
+                            {% csrf_token %}
+                            <h4>this action will permanently delete... <span class="text-danger">{{ ticket.title }}</span></h4>
+                            
+                            <i class="icofont-ui-delete text-danger display-2 text-center mt-2 mb-4"></i>
+                        </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal"><a class="text-white"
+                                        href="{% url 'ticket:ticket_home' %}">cancel</a></button>
+                                <button type="submit" class="btn btn-danger text-white">delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
