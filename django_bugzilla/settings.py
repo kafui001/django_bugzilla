@@ -19,7 +19,7 @@ SECRET_KEY = 'l-r0zbabv9xtkw8ijc67(z&qw3ghx96f4-m+w#b$#2vw^68pzk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','djangobugzilla.herokuapp.com']
 
 
 # Application definition
