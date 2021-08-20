@@ -78,20 +78,20 @@ WSGI_APPLICATION = 'django_bugzilla.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv("DATABASE_ENGINE"),
-        'NAME': os.getenv("DATABASE_NAME"),
-        'USER': os.getenv("DATABASE_USER"),
-        'PASSWORD': os.getenv("DATABASE_PASSWORD"),
-        'HOST': os.getenv("DATABASE_HOST"),
-        'PORT': os.getenv("DATABASE_PORT") ,
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.getenv("DATABASE_ENGINE"),
+#         'NAME': os.getenv("DATABASE_NAME"),
+#         'USER': os.getenv("DATABASE_USER"),
+#         'PASSWORD': os.getenv("DATABASE_PASSWORD"),
+#         'HOST': os.getenv("DATABASE_HOST"),
+#         'PORT': os.getenv("DATABASE_PORT") ,
+#     }
+# }
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
