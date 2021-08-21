@@ -104,9 +104,6 @@ DATABASES = {
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -149,8 +146,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 MEDIA_URL = '/images/'
+
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
 
@@ -158,6 +156,7 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 AUTH_USER_MODEL = 'core.BugUser'
 
 LOGIN_URL = "/signup"
+
 
 
 
