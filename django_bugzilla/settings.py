@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -14,10 +15,10 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l-r0zbabv9xtkw8ijc67(z&qw3ghx96f4-m+w#b$#2vw^68pzk'
+SECRET_KEY = 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = 'DEBUG'
 
 ALLOWED_HOSTS = ['127.0.0.1','djangobugzilla.herokuapp.com']
 
@@ -86,18 +87,24 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': os.getenv("DATABASE_ENGINE"),
-#         'NAME': os.getenv("DATABASE_NAME"),
-#         'USER': os.getenv("DATABASE_USER"),
-#         'PASSWORD': os.getenv("DATABASE_PASSWORD"),
-#         'HOST': os.getenv("DATABASE_HOST"),
-#         'PORT': os.getenv("DATABASE_PORT") ,
+#         'ENGINE'   : "DATABASE_ENGINE",
+#         'NAME'     : "DATABASE_NAME",
+#         'USER'     : "DATABASE_USER",
+#         'PASSWORD' : "DATABASE_PASSWORD",
+#         'HOST'     : "DATABASE_HOST",
+#         'PORT'     : "DATABASE_PORT" ,
+#         'OPTIONS'  : {
+#                     "sslmode": "SSL_MODE",
+#                     "sslrootcert": os.path.join(BASE_DIR, "SSL_ROOT_CERT")
+#                     }
 #     }
 # }
 
-# import dj_database_url
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
+
 
 
 # Password validation
@@ -138,7 +145,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-config = os.path.join(BASE_DIR, 'config')
+# config = os.path.join(BASE_DIR, 'config')
 STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
