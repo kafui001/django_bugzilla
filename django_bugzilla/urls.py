@@ -15,7 +15,7 @@ urlpatterns = [
     path('', user_views.UserLogin.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('permission_denied/', user_views.PageNotPermittedView.as_view(), name='not_permitted'),
-    # demo accounts
+    
    
 
     # connecting roles and dashboard page directly for a more direct URL

@@ -112,6 +112,11 @@ class DeleteNotification(DeleteView):
             notification.delete()
 
             return redirect(reverse('ticket:ticket_detail', kwargs={'pk': tic_id}))
+        elif notification.notification_type == 3:
+            proj_id = notification.project.id
+            notification.delete()
+
+            return redirect(reverse('project:project_detail', kwargs={'pk': proj_id}))    
         elif notification.notification_type == 4:
             dev_role = notification.dev_role_assign.id
             notification.delete()

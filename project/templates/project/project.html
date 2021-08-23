@@ -35,7 +35,7 @@
                                         <th>TITLE</th>
                                         <th>START DATE</th>
                                         <th>END DATE</th>
-                                        <th>LEADER</th>
+                                        <th>MANAGER</th>
                                         <th>COMPLETION</th>
                                         {% if user.is_superuser %}
                                             <th>ACTIONS</th>
@@ -63,7 +63,11 @@
                                             </td>
                                             <td>
                                                 <a href="{% url 'project:project_detail' item.pk %}">
-                                                    <span class="fw-bold ms-1">{{item.project_lead}}</span>
+                                                    {% if item.project_lead %}
+                                                        <span class="fw-bold ms-1">{{item.project_lead}}</span>
+                                                    {% else %}
+                                                        <span class="ms-1">not yet assigned</span>
+                                                    {% endif %}
                                                 </a>
                                             </td>
                                             <td>
