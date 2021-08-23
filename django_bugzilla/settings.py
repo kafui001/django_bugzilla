@@ -91,7 +91,7 @@ DATABASES = {
 }
 
 
-# LOCAL DEVELOPMENT DB
+# LOCAL DEVELOPMENT DATABASE SETTINGS
 # DATABASES = {
 #     'default': {
 #         'ENGINE'   : os.getenv("DATABASE_ENGINE"),
