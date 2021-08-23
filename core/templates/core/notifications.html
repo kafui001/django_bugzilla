@@ -24,6 +24,20 @@
 
                                 </div>
                         </li>
+                    {% elif notification.notification_type == 3 %}
+                    <li class="py-2 mb-1 border-bottom">
+                        <div class="flex-fill ms-2">
+                            <div><small class="mr-5">from -- {{ notification.from_user }}</small> || <small>{{ notification.date_created}}</small>
+                            </div>
+                    
+                            <form id="myform" method="POST" action="{% url 'core:notification_delete' notification.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="flag" value="2" />
+                                <a href="#" onclick="document.forms[0].submit();return false;"><span class="font-weight-bold">{{ notification.from_user }} -- A new project has been created without a pm assigned</span></a>
+                            </form>
+                    
+                        </div>
+                    </li>
                     {% elif notification.notification_type == 4 %}
                     <li class="py-2 mb-1 border-bottom">
                         <div class="flex-fill ms-2">

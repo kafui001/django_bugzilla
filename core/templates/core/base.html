@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>:: Django Bugzilla</title>
+    
     <link rel="stylesheet" href="{% static 'assets/css/my-task.style.min.css' %}">
 </head>
 <body>
@@ -25,7 +26,12 @@
                         <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
                     </svg>
                 </span>
-                <span class="logo-text">DJANGO  BUGZILLA</span>
+                {% if user.is_superuser or user.is_project_manager or user.is_developer %}
+                    <span class="logo-text"><a class="text-white" href="{% url 'project:project_home' %}">DJANGO BUGZILLA</a></span>
+                {% else %}
+                    <span class="logo-text"><a class="text-white" href="{% url 'ticket:ticket_home' %}">DJANGO
+                        BUGZILLA</a></span>
+                {% endif %}
             </a>
             <!-- Menu: main ul -->
 
@@ -83,8 +89,10 @@
                         </div>
                         <div class="dropdown notifications zindex-popover">
                             <a class="nav-link dropdown-toggle pulse ml-5" href="#" role="button" data-bs-toggle="dropdown">
+                               
                                 <i class="icofont-alarm  fs-5"></i>
-                                <span class="pulse-ring"></span>
+                                    <span class="pulse-ring"></span>
+                              
                             </a>
                             <div id="NotificationsDiv" class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-sm-end p-0 m-0">
                             {% show_notifications %}
@@ -110,11 +118,24 @@
                 </button>
                     
                 
-                    <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 invisible">
-                        <div class="input-group flex-nowrap input-group-lg">
+                    <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 ms-4 mb-md-0">
+                        <!-- <div class="input-group flex-nowrap input-group-lg">
                             <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
                             <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
                             <button type="button" class="input-group-text add-member-top" id="addon-wrappingone" data-bs-toggle="modal" data-bs-target="#addUser"><i class="fa fa-plus"></i></button>
+                        </div> -->
+                        
+                        <div class="input-group flex-nowrap input-group-sm">
+                            <!-- <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button> -->
+                            <!-- <input type="search" class="form-control" placeholder="Search" aria-label="search" 
+                                aria-describedby="addon-wrapping">-->
+                            {% if user.is_project_manager or user.is_superuser or user.is_developer %}
+                                <button class="btn btn-primary" data-bs-dismiss="modal"><a class="text-white"
+                                    href="{% url 'project:project_home' %}">home</a></button>
+                            {% else %}
+                                <button class="btn btn-primary" data-bs-dismiss="modal"><a class="text-white"
+                                        href="{% url 'ticket:ticket_home' %}">home</a></button>
+                            {% endif %}
                         </div>
                     </div> 
     

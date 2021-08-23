@@ -52,7 +52,11 @@
                                             </td>
                                             <td>
                                                 <a href="{% url 'ticket:ticket_detail' item.pk %}">
-                                                    <span class="fw-bold ms-1">{{item.creator}}</span>
+                                                    {% if item.assigned_to %}
+                                                    <span class="fw-bold ms-1">{{item.assigned_to}}</span>
+                                                    {% else %}
+                                                    <span class="ms-1">not yet assigned</span>
+                                                    {% endif %}
                                                 </a>
                                             </td>
                                             <td>

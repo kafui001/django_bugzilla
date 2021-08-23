@@ -26,7 +26,7 @@ class UserSignUpView(View):
             user.username = form.cleaned_data["username"]
             user.save()
             login(request, user)
-            return redirect('core:task')
+            return redirect('ticket:ticket_home')
         else:
             return render(request, "users/signup.html", {
                 'form': form
@@ -36,7 +36,7 @@ class UserSignUpView(View):
 class UserLogin(FormView):
     template_name = "users/signin.html"
     form_class  = LoginForm
-    success_url = reverse_lazy("core:task")
+    success_url = reverse_lazy('ticket:ticket_home')
 
     def post(self, request, *args, **kwargs):
         form     = self.get_form()
